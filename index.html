@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProChat - Chat With Me</title>
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+        }
+        .chatform{
+
+            text-align: center;
+            justify-items: center;
+            min-height:100vh;
+            padding-top:10px;
+            margin-left:1px;
+
+        }
+        #chat {
+
+            width: 640px;
+            height:40px;
+            border-radius:10px;
+        }
+        #send-chat{
+            color:#000;
+            height:40px;
+            width:70px;
+            border-radius:10px;
+        }
+        #khungchat{
+            border:2px solid #fff;
+            width:700px;
+            height:500px;
+            margin: 0 auto;
+            padding-top:20px;
+            border-radius:10px;
+
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;font-size: 50px;font-family: sans-serif;">Pro Chat</h1>
+    <ul id="khungchat"></ul>
+    <div class="chatform">
+        <form id="chat-form">
+        <input type="text" id="chat">
+        <button id="send-chat">Gửi</button>
+    </form>
+
+    </div>
+    
+    
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    const name= prompt('Tên Bạn Là:')
+    const chatform=document.querySelector('#chat-form');
+    const chatmes=document.querySelector('#chat');
+    chatform.addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+        const message = chatmes.value;
+        socket.emit('on-chat',{
+            name,
+            message
+        });
+        chatmes.value=''
+
+    
+    });
+    const khungchat = document.querySelector('#khungchat');
+    socket.on('user-chat',(message)=>{
+        const chatitem=document.createElement('li');
+        chatitem.textContent=`${message.name} : ${message.message}`;
+        khungchat.appendChild(chatitem);
+
+    }); 
+</script>
+</html>
