@@ -47,7 +47,11 @@
 
 <body>
     <h1 style="text-align: center;font-size: 50px;font-family: sans-serif;">Pro Chat</h1>
+    <form id ='name-form'>
     <input type='text' id='name' placeholder='Nhập Tên Của Bạn'></input>
+    <button id='button'>Xác nhận tên</button>
+    </form>
+    
     <ul id="khungchat"></ul>
     <div class="chatform">
         <form id="chat-form">
@@ -63,10 +67,16 @@
 <script>
     const socket = io();
 
-    const name=document.querySelector('#name');
-    const username=name.value;
+    const nameform=documen.querySelector('#name-form');
+    const nameinput=document.querySelector('#name');
+    
     const chatform=document.querySelector('#chat-form');
     const chatmes=document.querySelector('#chat');
+
+    nameform.addEventListener('submit'), () =>{
+    e.preventDefault();
+    const name = nameinput.value;
+    }
     chatform.addEventListener('submit',(e)=>{
         e.preventDefault();
 
