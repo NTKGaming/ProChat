@@ -82,7 +82,7 @@
 
         const message = chatmes.value;
         socket.emit('on-chat',{
-            username,
+            name,
             message
         });
         chatmes.value=''
@@ -92,7 +92,7 @@
     const khungchat = document.querySelector('#khungchat');
     socket.on('user-chat',(message)=>{
         const chatitem=document.createElement('li');
-        chatitem.textContent=`${message.username} : ${message.message}`;
+        chatitem.textContent=`${message.name} : ${message.message}`;
         khungchat.appendChild(chatitem);
 
     }); 
